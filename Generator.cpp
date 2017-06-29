@@ -15,8 +15,8 @@ using namespace std;
 int numMelodies;
 int BPM;
 int key;
-char sequence[11];
 string name;
+char sequence[] = {'*', '*', '*', '+', '+', '+', '+', '+', '.', '.', '\0'};
 
 void Generator::writeToFile(vector<char> notes, string append) {
 
@@ -27,7 +27,10 @@ void Generator::writeToFile(vector<char> notes, string append) {
 //
 
 Generator::Generator() {
-
+    numMelodies = 3;
+    BPM = 72;
+    key = 0;
+    name = "sample";
 }
 
 int Generator::getNumMelodies() {
@@ -62,5 +65,4 @@ void Generator::setSequence(char s[]) {
     for(int i = 0; i < 10; i++) {
         sequence[i] = s[i];
     }
-    sequence[10] = '\0';
 }
