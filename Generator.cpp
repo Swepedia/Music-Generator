@@ -5,6 +5,7 @@
 #include<fstream>
 #include<string>
 #include<vector>
+#include<cstdlib>
 
 using namespace std;
 
@@ -19,7 +20,22 @@ string name;
 char sequence[] = {'*', '*', '*', '+', '+', '+', '+', '+', '.', '.', '\0'};
 
 void Generator::writeToFile(vector<char> notes, string append) {
+    ofstream outStream;
 
+    string temp = getName();
+    temp + "_";
+    temp + append;
+    outStream.open(temp.c_str());
+    if(outStream.fail()) {
+        cout << "Output file opening failed.\n";
+        exit(1);
+    }
+
+    for(unsigned int i = 0; i < notes.size(); i++) {
+        outStream << notes[i];
+    }
+
+    outStream.close();
 }
 
 //
