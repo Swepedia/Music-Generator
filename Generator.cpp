@@ -37,7 +37,7 @@ void Generator::writeToFile(vector<char> notes, string append) {
 //
 
 Generator::Generator() {
-    setNumMelodies(3);
+    setNumMelodies(1);
     setBPM(72);
     setKey(0);
     setName("sample");
@@ -103,5 +103,9 @@ void Generator::generate() {
         else if(sequence[i] == SYMBOL_OUTRO) {
             lengthOutro++;
         }
+    }
+    notes.push_back(getKey());
+    for(int i = 0; i < getNumMelodies(); i++) {
+
     }
 }
