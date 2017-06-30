@@ -43,16 +43,6 @@ Generator::Generator() {
     setName("sample");
     char temp[] = {'*', '*', '*', '+', '+','+','+','+', '.', '.'};
     setSequence(temp);
-//    sequence[0] = '*';
-//    sequence[1] = '*';
-//    sequence[2] = '*';
-//    sequence[3] = '+';
-//    sequence[4] = '+';
-//    sequence[5] = '+';
-//    sequence[6] = '+';
-//    sequence[7] = '+';
-//    sequence[8] = '.';
-//    sequence[9] = '.';
 }
 
 int Generator::getNumMelodies() {
