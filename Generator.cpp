@@ -87,6 +87,10 @@ void Generator::setSequence(char s[]) {
     }
 }
 
+void Generator::setName(string n) {
+    name = n;
+}
+
 void Generator::generate() {
     int numNotes;
     int lengthIntro;
