@@ -37,20 +37,22 @@ void Generator::writeToFile(vector<char> notes, string append) {
 //
 
 Generator::Generator() {
-    numMelodies = 3;
-    BPM = 72;
-    key = 0;
-    name = "sample";
-    sequence[0] = '*';
-    sequence[1] = '*';
-    sequence[2] = '*';
-    sequence[3] = '+';
-    sequence[4] = '+';
-    sequence[5] = '+';
-    sequence[6] = '+';
-    sequence[7] = '+';
-    sequence[8] = '.';
-    sequence[9] = '.';
+    setNumMelodies(3);
+    setBPM(72);
+    setKey(0);
+    setName("sample");
+    char temp[] = {'*', '*', '*', '+', '+','+','+','+', '.', '.'};
+    setSequence(temp);
+//    sequence[0] = '*';
+//    sequence[1] = '*';
+//    sequence[2] = '*';
+//    sequence[3] = '+';
+//    sequence[4] = '+';
+//    sequence[5] = '+';
+//    sequence[6] = '+';
+//    sequence[7] = '+';
+//    sequence[8] = '.';
+//    sequence[9] = '.';
 }
 
 int Generator::getNumMelodies() {
