@@ -13,7 +13,7 @@ class Generator
 private:
     int numMelodies;
     int BPM;
-    int key;
+    char key;
     string name;
     /*
      * can be anything including 1-20
@@ -37,12 +37,12 @@ public:
 
     int getNumMelodies();
     int getBPM();
-    int getKey();
+    char getKey();
     string getName();
 
     void setNumMelodies(int num);
     void setBPM(int beat);
-    void setKey(int k);
+    void setKey(char k);
     void setSequence(char s[]);
     void setName(string n);
 

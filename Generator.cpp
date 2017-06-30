@@ -15,7 +15,7 @@ using namespace std;
 
 int numMelodies;
 int BPM;
-int key;
+char key;
 string name;
 char sequence[] = {'*', '*', '*', '+', '+', '+', '+', '+', '.', '.', '\0'};
 
@@ -57,7 +57,7 @@ int Generator::getBPM() {
     return BPM;
 }
 
-int Generator::getKey() {
+char Generator::getKey() {
     return key;
 }
 
@@ -73,7 +73,7 @@ void Generator::setBPM(int beat) {
     BPM = beat;
 }
 
-void Generator::setKey(int k) {
+void Generator::setKey(char k) {
     key = k;
 }
 
@@ -81,4 +81,7 @@ void Generator::setSequence(char s[]) {
     for(int i = 0; i < 10; i++) {
         sequence[i] = s[i];
     }
+}
+
+void Generator::generate() {
 }
