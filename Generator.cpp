@@ -88,4 +88,24 @@ void Generator::setSequence(char s[]) {
 }
 
 void Generator::generate() {
+    int numNotes;
+    int lengthIntro;
+    int lengthMiddle;
+    int lengthOutro;
+    vector<char> notes;
+
+    //I'm using 4 because I want all the songs to be 4 minutes long
+    numNotes = getBPM() * 4;
+
+    for(int i = 0; i < 10; i++) {
+        if(sequence[i] == SYMBOL_INTRO) {
+            lengthIntro++;
+        }
+        else if(sequence[i] == SYMBOL_MIDDLE) {
+            lengthMiddle++;
+        }
+        else if(sequence[i] == SYMBOL_OUTRO) {
+            lengthOutro++;
+        }
+    }
 }

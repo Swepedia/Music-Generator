@@ -22,6 +22,9 @@ private:
     char sequence[10];
     /*
      * How long the intro, middle, and outro are
+     * intro = '*'
+     * middle = '+'
+     * outro = '.'
      */
 
     static const char SYMBOL_INTRO = '*';
