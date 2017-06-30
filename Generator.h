@@ -16,13 +16,17 @@ private:
     char key;
     string name;
     /*
-     * can be anything including 1-20
+     * can be anything between 1-20
      */
     
-    char sequence[11];
+    char sequence[10];
     /*
      * How long the intro, middle, and outro are
      */
+
+    static const char SYMBOL_INTRO = '*';
+    static const char SYMBOL_MIDDLE = '+';
+    static const char SYMBOL_OUTRO = '.';
 
     void writeToFile(vector<char> notes, string append);
     /*
