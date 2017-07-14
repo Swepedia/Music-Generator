@@ -16,8 +16,8 @@ void Generator::writeToFile(vector<char> notes, string append) {
     ofstream outStream;
 
     string temp = getName();
-    temp + "_";
-    temp + append;
+    temp += "_";
+    temp += append;
     outStream.open(temp.c_str());
     if(outStream.fail()) {
         cout << "Output file opening failed.\n";
@@ -166,7 +166,7 @@ void Generator::generate() {
             notes.push_back(' ');
         }
         append = "melody";
-        append += i;
+        append += to_string(i);
         writeToFile(notes, append);
         notes.clear();
     }
