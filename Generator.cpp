@@ -117,7 +117,7 @@ void Generator::generate() {
     //random numbers. It also makes it so that I can get different random
     //numbers more than once a second, which would be the case if I used rand()
     random_device randDev;
-    mt19937 generator(randDev());
+    mt19937 randGenerator(randDev());
     uniform_int_distribution<int> distr(1, 100);
     uniform_int_distribution<int> distrNotes(1, 7);
     int prob = 0;
@@ -126,9 +126,9 @@ void Generator::generate() {
     //Generation of melody happens here
     for(int i = 0; i < getNumMelodies(); i++) {
         for(int j = 0; j < numNotesIntro + numNotesMiddle; j++) {
-            prob = distr(generator);
+            prob = distr(randGenerator);
             if(prob <= 60) {
-                temp = distrNotes(generator);
+                temp = distrNotes(randGenerator);
                 switch(temp) {
                     case 1:
                         notes.push_back('A');
@@ -177,9 +177,9 @@ void Generator::generate() {
         notes.push_back(' ');
     }
     for(int i = 0; i < numNotesMiddle + numNotesOutro; i++) {
-        prob = distr(generator);
+        prob = distr(randGenerator);
         if(prob <= 50) {
-            temp = distrNotes(generator);
+            temp = distrNotes(randGenerator);
             switch(temp) {
                 case 1:
                     notes.push_back('A');
@@ -212,5 +212,26 @@ void Generator::generate() {
         }
     }
     append = "base";
+    writeToFile(notes, append);
+
+    //Generation of Percusion
+    
+    //Do this so the percussion doesn't play during intro
+    for(int i = 0; i < numNotesIntro; i++) {
+        notes.push_back(' ');
+    }
+    for(int i = 0; i < numNotesMiddle + numNotesOutro; i++) {
+        prob = distr(randGenerator);
+        if(prob <= 40) {
+            notes.push_back('.');
+        }
+        else if(prob <= 60) {
+            notes.push_back('_');
+        }
+        else {
+            notes.push_back(' ');
+        }
+    }
+    append = "percussion";
     writeToFile(notes, append);
 }
