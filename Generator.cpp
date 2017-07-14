@@ -110,7 +110,6 @@ void Generator::generate() {
     numNotesIntro = (static_cast<double> (lengthIntro) / 10) * numNotes;
     numNotesMiddle = (static_cast<double> (lengthMiddle) / 10) * numNotes; 
     numNotesOutro = (static_cast<double> (lengthOutro) / 10) * numNotes; 
-    notes.push_back(getKey());
 
     //Begin generation of the music notes
     //I do all this stuff at the beginning to get a uniform distribution to the
@@ -125,6 +124,7 @@ void Generator::generate() {
 
     //Generation of melody happens here
     for(int i = 0; i < getNumMelodies(); i++) {
+        notes.push_back(getKey());
         for(int j = 0; j < numNotesIntro + numNotesMiddle; j++) {
             prob = distr(randGenerator);
             if(prob <= 60) {
@@ -168,11 +168,13 @@ void Generator::generate() {
         append = "melody";
         append += i;
         writeToFile(notes, append);
+        notes.clear();
     }
 
     //Generation of base line
     
     //Do this so the base line doesn't play during the intro
+    notes.push_back(getKey());
     for(int i = 0; i < numNotesIntro; i++) {
         notes.push_back(' ');
     }
@@ -213,10 +215,12 @@ void Generator::generate() {
     }
     append = "base";
     writeToFile(notes, append);
+    notes.clear();
 
     //Generation of Percusion
     
     //Do this so the percussion doesn't play during intro
+    notes.push_back(getKey());
     for(int i = 0; i < numNotesIntro; i++) {
         notes.push_back(' ');
     }
