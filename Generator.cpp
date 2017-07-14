@@ -85,8 +85,11 @@ void Generator::setName(string n) {
 void Generator::generate() {
     int numNotes;
     int lengthIntro;
+    double numNotesIntro;
     int lengthMiddle;
+    double numNotesMiddle;
     int lengthOutro;
+    double numNotesOutro;
     vector<char> notes;
     string append;
 
@@ -104,6 +107,9 @@ void Generator::generate() {
             lengthOutro++;
         }
     }
+    numNotesIntro = (static_cast<double> (lengthIntro) / 10) * numNotes;
+    numNotesMiddle = (static_cast<double> (lengthMiddle) / 10) * numNotes; 
+    numNotesOutro = (static_cast<double> (lengthOutro) / 10) * numNotes; 
     notes.push_back(getKey());
 
     //Begin generation of the music notes
@@ -118,7 +124,7 @@ void Generator::generate() {
     int temp;
 
     for(int i = 0; i < getNumMelodies(); i++) {
-        for(int j = 0; j < numNotes; j++) {
+        for(int j = 0; j < numNotesIntro + numNotesMiddle; j++) {
             prob = distr(generator);
             if(prob <= 60) {
                 temp = distrNotes(generator);
@@ -152,6 +158,11 @@ void Generator::generate() {
             else {
                 notes.push_back(' ');
             }
+        }
+
+        //I do this so that the melody only plays during the intro and middle
+        for(int j = 0; j < numNotesOutro; j++) {
+            notes.push_back(' ');
         }
         append = "melody";
         append += i;
