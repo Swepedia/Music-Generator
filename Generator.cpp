@@ -4,6 +4,7 @@
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
+#include<random>
 
 using namespace std;
 
@@ -87,6 +88,7 @@ void Generator::generate() {
     int lengthMiddle;
     int lengthOutro;
     vector<char> notes;
+    string append;
 
     //I'm using 4 because I want all the songs to be 4 minutes long
     numNotes = getBPM() * 4;
@@ -103,7 +105,56 @@ void Generator::generate() {
         }
     }
     notes.push_back(getKey());
-    for(int i = 0; i < getNumMelodies(); i++) {
 
+    //Begin generation of the music notes
+    //I do all this stuff at the beginning to get a uniform distribution to the
+    //random numbers. It also makes it so that I can get different random
+    //numbers more than once a second, which would be the case if I used rand()
+    random_device randDev;
+    mt19937 generator(randDev());
+    uniform_int_distribution<int> distr(1, 100);
+    uniform_int_distribution<int> distrNotes(1, 7);
+    int prob = 0;
+    int temp;
+
+    for(int i = 0; i < getNumMelodies(); i++) {
+        for(int j = 0; j < numNotes; j++) {
+            prob = distr(generator);
+            if(prob <= 60) {
+                temp = distrNotes(generator);
+                switch(temp) {
+                    case 1:
+                        notes.push_back('A');
+                        break;
+                    case 2:
+                        notes.push_back('B');
+                        break;
+                    case 3:
+                        notes.push_back('C');
+                        break;
+                    case 4:
+                        notes.push_back('D');
+                        break;
+                    case 5:
+                        notes.push_back('E');
+                        break;
+                    case 6:
+                        notes.push_back('F');
+                        break;
+                    case 7:
+                        notes.push_back('G');
+                        break;
+                }
+            }
+            else if(prob <= 80 && j > 0 && notes[j - 1] != ' ') {
+                notes.push_back('-');
+            }
+            else {
+                notes.push_back(' ');
+            }
+        }
+        append = "melody";
+        append += i;
+        writeToFile(notes, append);
     }
 }
