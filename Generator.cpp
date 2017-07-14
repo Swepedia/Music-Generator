@@ -85,11 +85,11 @@ void Generator::setName(string n) {
 void Generator::generate() {
     int numNotes;
     int lengthIntro;
-    double numNotesIntro;
+    int numNotesIntro;
     int lengthMiddle;
-    double numNotesMiddle;
+    int numNotesMiddle;
     int lengthOutro;
-    double numNotesOutro;
+    int numNotesOutro;
     vector<char> notes;
     string append;
 
@@ -123,6 +123,7 @@ void Generator::generate() {
     int prob = 0;
     int temp;
 
+    //Generation of melody happens here
     for(int i = 0; i < getNumMelodies(); i++) {
         for(int j = 0; j < numNotesIntro + numNotesMiddle; j++) {
             prob = distr(generator);
@@ -168,4 +169,48 @@ void Generator::generate() {
         append += i;
         writeToFile(notes, append);
     }
+
+    //Generation of base line
+    
+    //Do this so the base line doesn't play during the intro
+    for(int i = 0; i < numNotesIntro; i++) {
+        notes.push_back(' ');
+    }
+    for(int i = 0; i < numNotesMiddle + numNotesOutro; i++) {
+        prob = distr(generator);
+        if(prob <= 50) {
+            temp = distrNotes(generator);
+            switch(temp) {
+                case 1:
+                    notes.push_back('A');
+                    break;
+                case 2:
+                    notes.push_back('B');
+                    break;
+                case 3:
+                    notes.push_back('C');
+                    break;
+                case 4:
+                    notes.push_back('D');
+                    break;
+                case 5:
+                    notes.push_back('E');
+                    break;
+                case 6:
+                    notes.push_back('F');
+                    break;
+                case 7:
+                    notes.push_back('G');
+                    break;
+            }
+        }
+        else if(prob <= 90 && i > 0 && notes[i - 1] != ' ') {
+            notes.push_back('-');
+        }
+        else {
+            notes.push_back(' ');
+        }
+    }
+    append = "base";
+    writeToFile(notes, append);
 }
