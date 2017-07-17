@@ -52,8 +52,9 @@ int Generator::getBPM() {
     return BPM;
 }
 
-char Generator::getKey() {
-    return key;
+int Generator::getKey() {
+    int temp = key;
+    return temp;
 }
 
 string Generator::getName() {
@@ -68,13 +69,17 @@ void Generator::setBPM(int beat) {
     BPM = beat;
 }
 
-void Generator::setKey(char k) {
+void Generator::setKey(int k) {
     key = k;
 }
 
-void Generator::setSequence(char s[]) {
-    for(int i = 0; i < 10; i++) {
-        sequence[i] = s[i];
+void Generator::setSequence(string s) {
+    int j = 0;
+    for(int i = 0; i < s.length(); i++) {
+        if(s[i] != '[' || s[i] != ']') {
+            sequence[j] = s[i];
+            j++;
+        }
     }
 }
 

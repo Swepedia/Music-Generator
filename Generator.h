@@ -41,13 +41,13 @@ public:
 
     int getNumMelodies();
     int getBPM();
-    char getKey();
+    int getKey();
     string getName();
 
     void setNumMelodies(int num);
     void setBPM(int beat);
-    void setKey(char k);
-    void setSequence(char s[]);
+    void setKey(int k);
+    void setSequence(string s);
     void setName(string n);
 
     
