@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include"Generator.h"
+#include<limits>
 
 int x;
 Generator generator;
@@ -10,6 +11,9 @@ int check();
 void displayMainMenu();
 void displayGenerateMenu();
 void displayPlayMenu();
+
+void chooseGenerateMenu();
+void choosePlayMenu();
 
 int main() {
     displayMainMenu();
@@ -23,9 +27,36 @@ int check(int lower, int upper) {
     while(cin.fail() || temp > upper || temp < lower) {
         cout << "Invalid Option. Try again: ";
         cin.clear();
-        cin.ignore(256, '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin >> temp;
     }
+    return temp;
+}
+
+//If you don't care about the length but want the other checks done use -1 as arg
+string check(int maxStringLength) {
+    string temp;
+    bool inputFailed; 
+    do {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, temp);
+        inputFailed = false;
+        if(maxStringLength == -1) {
+            if(temp.length() > maxStringLength) {
+                cout << "Too long! It should be no longer than " << maxStringLength << endl;
+                inputFailed = true;
+            }
+        }
+        if(temp.empty()) {
+            cout << "Cannot use a blank song name.\n";
+            inputFailed = true;
+        }
+        if(temp.find("/") != string::npos && temp.find("\\") != string::npos) {
+            cout << "Cannot use '/' or '\\'\n";
+            inputFailed = true;
+        }
+    } while(inputFailed);
     return temp;
 }
 
@@ -63,6 +94,10 @@ void displayGenerateMenu() {
     cout << "\t5) Key\n";
     cout << "\t6) Generate\n";
     cout << "\t7) Cancel\n";
+    
+}
+
+void chooseGenerateMenu() {
     bool go = true;
     while(go) {
         x = check(1, 7);
@@ -70,11 +105,9 @@ void displayGenerateMenu() {
         switch(x) {
             case 1:
                 {
-                    string name;
                     cout << "Input the name of the song:\n";
 
-                    getline(cin, name);
-                    generator.setName(name);
+                    generator.setName(check(-1));
                     break;
                 }
             case 2:
@@ -89,8 +122,7 @@ void displayGenerateMenu() {
                     cout << "(limit 10, order doesn't matter)\n";
                     cout << "]\r[";
 
-                    getline(cin, temp);
-                    generator.setSequence(temp);
+                    generator.setSequence(check(10));
                     break;
                 }
             case 3:

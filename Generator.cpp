@@ -76,7 +76,7 @@ void Generator::setKey(int k) {
 void Generator::setSequence(string s) {
     int j = 0;
     for(int i = 0; i < s.length(); i++) {
-        if(s[i] != '[' || s[i] != ']') {
+        if(s[i] != '[' && s[i] != ']') {
             sequence[j] = s[i];
             j++;
         }
