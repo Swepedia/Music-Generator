@@ -27,7 +27,7 @@ int check(int lower, int upper) {
     while(cin.fail() || temp > upper || temp < lower) {
         cout << "Invalid Option. Try again: ";
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore();
         cin >> temp;
     }
     return temp;
@@ -37,19 +37,21 @@ int check(int lower, int upper) {
 string check(int maxStringLength) {
     string temp;
     bool inputFailed; 
+    
+    //It's a do-while loop because I need to flush the cin buffer before doing anything
     do {
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore();
         getline(cin, temp);
         inputFailed = false;
-        if(maxStringLength == -1) {
+        if(maxStringLength != -1) {
             if(temp.length() > maxStringLength) {
                 cout << "Too long! It should be no longer than " << maxStringLength << endl;
                 inputFailed = true;
             }
         }
         if(temp.empty()) {
-            cout << "Cannot use a blank song name.\n";
+            cout << "Input cannot be blank.\n";
             inputFailed = true;
         }
         if(temp.find("/") != string::npos && temp.find("\\") != string::npos) {
@@ -87,6 +89,7 @@ void displayMainMenu() {
 }
 
 void displayGenerateMenu() {
+    cout << "++++++++++++++++++++\n\n";
     cout << "\t1) Name\n";
     cout << "\t2) Length of Sections\n";
     cout << "\t3) BPM\n";
@@ -95,9 +98,6 @@ void displayGenerateMenu() {
     cout << "\t6) Generate\n";
     cout << "\t7) Cancel\n";
     
-}
-
-void chooseGenerateMenu() {
     bool go = true;
     while(go) {
         x = check(1, 7);
@@ -105,6 +105,7 @@ void chooseGenerateMenu() {
         switch(x) {
             case 1:
                 {
+                    cout << "\nCurrent name is:" << generator.getName() << endl;
                     cout << "Input the name of the song:\n";
 
                     generator.setName(check(-1));
@@ -113,7 +114,7 @@ void chooseGenerateMenu() {
             case 2:
                 {
                     string temp;
-                    cout << "Determine the length of each section of the song.\n";
+                    cout << "\nDetermine the length of each section of the song.\n";
                     cout << "The sections are as follows:\n";
                     cout << "\tIntro = '*'\n";
                     cout << "\tMiddle = '+'\n";
@@ -127,14 +128,14 @@ void chooseGenerateMenu() {
                 }
             case 3:
                 {
-                    cout << "Enter the desired tempo in beats per minute (limit 1-400):\n";
+                    cout << "\nEnter the desired tempo in beats per minute (limit 1-400):\n";
 
                     generator.setBPM(check(1, 400));
                     break;
                 }
             case 4:
                 {
-                    cout << "Enter the desired number of melody parts\n";
+                    cout << "\nEnter the desired number of melody parts\n";
                     cout << "WARNING -- There is no current implementation of\n";
                     cout << "           chord generation. This means that the more\n";
                     cout << "           parts you add, the worse it will sound.\n";
@@ -145,7 +146,7 @@ void chooseGenerateMenu() {
                 }
             case 5:
                 {
-                    cout << "Enter the number corresponding to the desired key.\n";
+                    cout << "\nEnter the number corresponding to the desired key.\n";
                     cout << "--Major--\n";
                     cout << "\tA - 1\tAb - 8\n";
                     cout << "\tB - 2\tBb - 9\n";
@@ -168,7 +169,7 @@ void chooseGenerateMenu() {
                 }
             case 6:
                 {
-                    cout << "Generating song: " << generator.getName() << endl;
+                    cout << "\nGenerating song: " << generator.getName() << endl;
                     generator.generate();
                     cout << "Generation complete!\n";
                     break;
