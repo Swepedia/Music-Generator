@@ -63,12 +63,12 @@ string check(int maxStringLength) {
 }
 
 void displayMainMenu() {
-    cout << "++++++++++++++++++++\n";
-    cout << "+ Welcome to the   +\n";
-    cout << "+ Music Generator! +\n";
-    cout << "++++++++++++++++++++\n\n\n";
     bool go = true;
     while(go) {
+        cout << "\n++++++++++++++++++++\n";
+        cout << "| Welcome to the   |\n";
+        cout << "| Music Generator! |\n";
+        cout << "++++++++++++++++++++\n\n\n";
         cout << "\t1) Generate Song\n";
         cout << "\t2) Play Song\n";
         cout << "\t3) Quit\n\n";
@@ -89,23 +89,23 @@ void displayMainMenu() {
 }
 
 void displayGenerateMenu() {
-    cout << "++++++++++++++++++++\n\n";
-    cout << "\t1) Name\n";
-    cout << "\t2) Length of Sections\n";
-    cout << "\t3) BPM\n";
-    cout << "\t4) # of Melody Parts\n";
-    cout << "\t5) Key\n";
-    cout << "\t6) Generate\n";
-    cout << "\t7) Cancel\n";
-    
     bool go = true;
     while(go) {
-        x = check(1, 7);
+        cout << "++++++++++++++++++++\n\n";
+        cout << "\t1) Name\n";
+        cout << "\t2) Length of Sections\n";
+        cout << "\t3) BPM\n";
+        cout << "\t4) # of Melody Parts\n";
+        cout << "\t5) Key\n";
+        cout << "\t6) Info\n";
+        cout << "\t7) Generate\n";
+        cout << "\t8) Cancel\n";
+        x = check(1, 8);
 
         switch(x) {
             case 1:
                 {
-                    cout << "\nCurrent name is:" << generator.getName() << endl;
+                    cout << "\nCurrent name is: " << generator.getName() << endl;
                     cout << "Input the name of the song:\n";
 
                     generator.setName(check(-1));
@@ -119,34 +119,37 @@ void displayGenerateMenu() {
                     cout << "\tIntro = '*'\n";
                     cout << "\tMiddle = '+'\n";
                     cout << "\tOutro = '.'\n\n";
+                    cout << "Current sequence is: [" << generator.getSequence() << "]\n";
                     cout << "Input the corresponding symbol that goes with each section:\n";
                     cout << "(limit 10, order doesn't matter)\n";
-                    cout << "]\r[";
 
                     generator.setSequence(check(10));
                     break;
                 }
             case 3:
                 {
-                    cout << "\nEnter the desired tempo in beats per minute (limit 1-400):\n";
+                    cout << "\nCurrent BPM is: " << generator.getBPM() << endl;
+                    cout << "Enter the desired tempo in beats per minute (limit 1-400):\n";
 
                     generator.setBPM(check(1, 400));
                     break;
                 }
             case 4:
                 {
-                    cout << "\nEnter the desired number of melody parts\n";
+                    cout << "\nCurrent # of melodies is: " << generator.getNumMelodies() << endl;
+                    cout << "Enter the desired number of melody parts\n";
                     cout << "WARNING -- There is no current implementation of\n";
                     cout << "           chord generation. This means that the more\n";
                     cout << "           parts you add, the worse it will sound.\n";
-                    cout << "           I'm setting the current limit to 20 parts.\n:";
+                    cout << "           I'm setting the current limit to 20 parts.\n";
 
                     generator.setNumMelodies(check(1, 20));
                     break;
                 }
             case 5:
                 {
-                    cout << "\nEnter the number corresponding to the desired key.\n";
+                    cout << "\nCurrent key is: " << generator.getKey() << endl;
+                    cout << "Enter the number corresponding to the desired key.\n";
                     cout << "--Major--\n";
                     cout << "\tA - 1\tAb - 8\n";
                     cout << "\tB - 2\tBb - 9\n";
@@ -169,12 +172,23 @@ void displayGenerateMenu() {
                 }
             case 6:
                 {
-                    cout << "\nGenerating song: " << generator.getName() << endl;
-                    generator.generate();
-                    cout << "Generation complete!\n";
+                    cout << "\nSong Info:\n";
+                    cout << "Name:---------------" << generator.getName() << endl;
+                    cout << "Sequence:-----------" << generator.getSequence() << endl;
+                    cout << "BPM:----------------" << generator.getBPM() << endl;
+                    cout << "# of Melodies:------" << generator.getNumMelodies() << endl;
+                    cout << "Key:----------------" << generator.getKey() << endl;
                     break;
                 }
             case 7:
+                {
+                    cout << "\nGenerating song: " << generator.getName() << endl;
+                    generator.generate();
+                    cout << "Generation complete!\n";
+                    go = false;
+                    break;
+                }
+            case 8:
                 go = false;
                 break;
         }

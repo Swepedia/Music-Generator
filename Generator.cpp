@@ -57,6 +57,14 @@ int Generator::getKey() {
     return temp;
 }
 
+string Generator::getSequence() {
+    string temp;
+    for(int i = 0; i < 10; i++) {
+        temp += sequence[i];
+    }
+    return temp;
+}
+
 string Generator::getName() {
     return name;
 }

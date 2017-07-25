@@ -42,6 +42,7 @@ public:
     int getNumMelodies();
     int getBPM();
     int getKey();
+    string getSequence();
     string getName();
 
     void setNumMelodies(int num);
