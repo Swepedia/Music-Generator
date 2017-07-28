@@ -1,4 +1,5 @@
-//@author: Maxwell Heeschen
+#ifndef GENERATOR_H
+#define GENERATOR_H
 
 #include<vector>
 #include<string>
@@ -8,13 +9,10 @@ using namespace std;
 class Generator
 {
 private:
-    int numMelodies;
-    int BPM;
-    char key;
+    unsigned int numMelodies;
+    unsigned int BPM;
+    unsigned char key;
     string name;
-    /*
-     * can be anything between 1-20
-     */
     
     char sequence[10];
     /*
@@ -59,3 +57,4 @@ public:
      * writeToFile method.
      */
 };
+#endif

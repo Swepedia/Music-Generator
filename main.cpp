@@ -1,5 +1,3 @@
-//@author: Maxwell Heeschen
-
 #include<iostream>
 #include"Generator.h"
 #include<limits>
@@ -148,16 +146,16 @@ void displayGenerateMenu() {
                 }
             case 5:
                 {
-                    cout << "\nCurrent key is: " << generator.getKey() << endl;
+                    cout << "\nCurrent key is: " << (generator.getKey() + 1) << endl;
                     cout << "Enter the number corresponding to the desired key.\n";
                     cout << "--Major--\n";
-                    cout << "\tA - 1\tAb - 8\n";
-                    cout << "\tB - 2\tBb - 9\n";
-                    cout << "\tC - 3\t\n";
-                    cout << "\tD - 4\tDb - 10\n";
-                    cout << "\tE - 5\tEb - 11\n";
-                    cout << "\tF - 6\tF# - 12\n";
-                    cout << "\tG - 7\t\n\n";
+                    cout << "\tC  - 1\tB - 8\n";
+                    cout << "\tF  - 2\tE - 9\n";
+                    cout << "\tBb - 3\tA - 10\n";
+                    cout << "\tEb - 4\tD - 11\n";
+                    cout << "\tAb - 5\tG - 12\n";
+                    cout << "\tDb - 6\t\n";
+                    cout << "\tGb - 7\t\n\n";
                     cout << "--Minor--\n";
                     cout << "\tA - 13\tAb - 20\n";
                     cout << "\tB - 14\tBb - 21\n";
@@ -167,7 +165,8 @@ void displayGenerateMenu() {
                     cout << "\tF - 18\tF# - 24\n";
                     cout << "\tG - 19\t\n\n";
 
-                    generator.setKey(check(1, 24));
+                    //I subtract 1 so I don't have to deal with off-by-one
+                    generator.setKey(check(1, 24) - 1);
                     break;
                 }
             case 6:
