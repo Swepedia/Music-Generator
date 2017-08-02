@@ -1,7 +1,7 @@
 #include<cmath>
 #include"fileToWav.h"
 
-unsigned int* getIntervals(unsigned int key) {
+unsigned int* fileToWav::getIntervals(unsigned int key) {
     int pos1;
     int pos2;
     unsigned int* intervals;
@@ -30,8 +30,18 @@ unsigned int* getIntervals(unsigned int key) {
     return intervals;
 }
 
-double getFrequency(int intervals[], unsigned int key) {
+double fileToWav::getFrequency(int intervals[], unsigned int key, char note) {
     double frequency;
+    double baseNote = C_FREQUENCY;
+    if(key == 6) {
+        baseNote = CFLAT_FREQUENCY;
+    }
+
+    else if(key >= 7 && key <= 10) {
+        baseNote = CSHARP_FREQUENCY;
+    }
+
+    frequency = baseNote * (pow(pow(2, 1.0 / 12.0), key));
     return frequency;
 }
 

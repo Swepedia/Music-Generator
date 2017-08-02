@@ -22,8 +22,9 @@ using namespace littleEndian;
 class fileToWav
 {
     private:
-        const double C_FREQUENCY = 261.626;
-        const double CFLAT_FREQUENCY = 246.94;
+        const double C_FREQUENCY = 261.6;
+        const double CFLAT_FREQUENCY = 246.9;
+        const double CSHARP_FREQUENCY = 277.2;
         unsigned int* getIntervals(unsigned int key);
         /*
          * Gets the length of the intervals between different notes. The
@@ -34,7 +35,7 @@ class fileToWav
          * between 2-3 as the 'inch worm' travels to the left
          */
 
-        double getFrequency(int intervals[], unsigned int key);
+        double getFrequency(int intervals[], unsigned int key, char note);
     public:
         void createWav(vector<string> files);
 };
