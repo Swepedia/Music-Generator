@@ -23,6 +23,7 @@ using namespace littleEndian;
 class fileToWav
 {
     private:
+        const double FS3 = 185.0;
         const double G3 = 196.0;
         const double GS3 = 207.7;
         const double A3 = 220.0;
