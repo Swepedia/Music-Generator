@@ -1,6 +1,6 @@
 #include<cmath>
-#include<map>
 #include"fileToWav.h"
+#include<fstream>
 
 map<char, double> fileToWav::getFrequency(unsigned int key) {
     map<char, double> frequencies;
@@ -156,4 +156,25 @@ map<char, double> fileToWav::getFrequency(unsigned int key) {
 }
 
 void fileToWav::createWav(vector<string> files) {
+    string currentFile;
+
+    //Using a vector of vectors so that I can store each of the songs in one
+    //vector
+    vector<vector<string>> songs;
+    vector<string> notes;
+
+    for(int i = 0; i < files.size(); i++) {
+        ifstream input;
+
+        currentFile = files[i];
+
+        //Only checking the first letter to see if it is a 'melody', 'base',
+        //or 'percussion' file
+        if(currentFile[0] == 'm') {
+        }
+        else if(currentFile[0] == 'b') {
+        }
+        else if(currentFile[0] == 'p') {
+        }
+    }
 }
