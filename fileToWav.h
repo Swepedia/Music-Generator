@@ -11,7 +11,7 @@ using namespace std;
 namespace littleEndian
 {
     template<typename Word>
-    void writeWord(ostream out, Word word, unsigned size = sizeof(Word)) {
+    void writeWord(ostream& out, Word word, unsigned size = sizeof(Word)) {
         for(; size; --size, word >>= 8) {
             out.put(static_cast<char> (word & 0xFF));
         }

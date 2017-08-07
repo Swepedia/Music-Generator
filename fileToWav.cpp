@@ -1,6 +1,7 @@
 #include<cmath>
 #include"fileToWav.h"
 #include<fstream>
+#include<iostream>
 
 map<char, double> fileToWav::getFrequency(unsigned int key) {
     map<char, double> frequencies;
@@ -157,11 +158,39 @@ map<char, double> fileToWav::getFrequency(unsigned int key) {
 
 void fileToWav::createWav(vector<string> files) {
     string currentFile;
+    string songName;
+    int songNameLength;
+    int key;
+    int BPM;
 
-    //Using a vector of vectors so that I can store each of the songs in one
-    //vector
-    vector<vector<string>> songs;
+    for(int i = 0; i < files[0].size(); i++) {
+        if(files[0][i] == '_') {
+            songNameLength = i;
+        }
+    }
+    songName = files[0].substr(0, songNameLength);
     vector<string> notes;
+
+    ofstream wavFile(songName.c_str(), ios::binary);
+    if(wavFile.fail()) {
+        cout << "Failed to create WAV file.";
+        exit(1);
+    }
+
+    //Writing the WAVE header stuff
+    wavFile << "RIFF----WAVfmt ";
+    writeWord(wavFile, 16, 4); //Subchunk1 Size
+    writeWord(wavFile, 1, 2); //Audio format, 1 = PCM
+    writeWord(wavFile, 1, 2); //Number of channels
+    writeWord(wavFile, 44100, 4); //Sample rate
+    writeWord(wavFile, 88200, 4); //Byte rate (SampleRate * NumChannels * BitsPerSample) / 8
+    writeWord(wavFile, 2, 2); //Block Align = NumChannels * BitsPerSample / 8
+    writeWord(wavFile, 16, 2); //Bits Per Sample
+
+    //keep track of the data chunk position
+    size_t dataChunkPos = wavFile.tellp();
+    wavFile << "data----";
+
 
     for(int i = 0; i < files.size(); i++) {
         ifstream input;
@@ -170,11 +199,11 @@ void fileToWav::createWav(vector<string> files) {
 
         //Only checking the first letter to see if it is a 'melody', 'base',
         //or 'percussion' file
-        if(currentFile[0] == 'm') {
+        if(currentFile[songNameLength + 1] == 'm') {
         }
-        else if(currentFile[0] == 'b') {
+        else if(currentFile[songNameLength + 1] == 'b') {
         }
-        else if(currentFile[0] == 'p') {
+        else if(currentFile[songNameLength + 1] == 'p') {
         }
     }
 }
