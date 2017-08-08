@@ -49,6 +49,7 @@ class fileToWav
         map<char, double> getFrequency(unsigned int key);
 
     public:
+        fileToWav();
         void createWav(vector<string> files);
 };
 

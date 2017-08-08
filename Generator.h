@@ -26,7 +26,7 @@ private:
     static const char SYMBOL_MIDDLE = '+';
     static const char SYMBOL_OUTRO = '.';
 
-    void writeToFile(vector<char> notes, string append);
+    string writeToFile(vector<char> notes, string append);
     /*
      * Writes the vector of notes to a file to be played back later. The name
      * of the file is the variable 'name' and then the arg 'append' is appended
