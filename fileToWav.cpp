@@ -169,6 +169,7 @@ void fileToWav::createWav(vector<string> files) {
     for(int i = 0; i < files[0].size(); i++) {
         if(files[0][i] == '_') {
             songNameLength = i;
+            break;
         }
     }
     songName = files[0].substr(0, songNameLength) + ".wav";
@@ -213,11 +214,12 @@ void fileToWav::createWav(vector<string> files) {
             notes.push_back(input.get());
         }
 
-        unsigned int BPM = notes.size() / 4;
+        double BPM = notes.size() / 4;
 
         
-        double lengthOfNote = 60 / BPM; //Use 60 because it's how many seconds in a minute
+        double lengthOfNote = 60.0 / BPM; //Use 60 because it's how many seconds in a minute
         double hz = 44100; //Samples per second
+        double amplitude = 32760;
         int numSamples = hz * lengthOfNote;
         const double twoPi = 6.283185307179586476925286766559; 
 
@@ -228,7 +230,7 @@ void fileToWav::createWav(vector<string> files) {
             for(int j = 0; j < notes.size(); j++) {
                 if(notes[j] != '-' && notes[j] != ' ') {
                     for(int k = 0; k < numSamples; k++) {
-                        writeWord(wavFile, (int)(sin(twoPi * k * frequencies[notes[j]])));
+                        writeWord(wavFile, (int)(amplitude * sin(twoPi * k * frequencies[notes[j]])));
                     }
                 }
             }
