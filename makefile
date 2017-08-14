@@ -7,8 +7,8 @@ WARNINGS := -Wall -Wextra -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings \
 		   -Wpointer-arith -Wcast-qual -Wmissing-noreturn \
 		   -Wmissing-format-attribute -Winline -Winvalid-pch -Wvla \
 		   -Wdisabled-optimization -Woverlength-strings
-LFLAGS = -std=c++11 $(WARNINGS)
-CFLAGS = -std=c++11 -c $(WARNINGS)
+LFLAGS = -std=c++11 $(WARNINGS) $(DEBUG)
+CFLAGS = -std=c++11 -c $(WARNINGS) $(DEBUG)
 OBJECT = $(CXX) $(CFLAGS) $<
 
 MusicGenerator : $(OBJS)

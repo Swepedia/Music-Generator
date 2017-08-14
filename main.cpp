@@ -5,7 +5,8 @@
 int x;
 Generator generator;
 
-int check();
+int check(int lower, int upper);
+string check(int maxStringLength);
 void displayMainMenu();
 void displayGenerateMenu();
 void displayPlayMenu();
@@ -43,7 +44,7 @@ string check(int maxStringLength) {
         getline(cin, temp);
         inputFailed = false;
         if(maxStringLength != -1) {
-            if(temp.length() > maxStringLength) {
+            if((int)(temp.length()) > maxStringLength) {
                 cout << "Too long! It should be no longer than " << maxStringLength << endl;
                 inputFailed = true;
             }
