@@ -83,7 +83,7 @@ void Generator::setKey(int k) {
 
 void Generator::setSequence(string s) {
     int j = 0;
-    for(int i = 0; i < s.length(); i++) {
+    for(unsigned long i = 0; i < s.length(); i++) {
         if(s[i] != '[' && s[i] != ']') {
             sequence[j] = s[i];
             j++;
@@ -97,11 +97,11 @@ void Generator::setName(string n) {
 
 void Generator::generate() {
     int numNotes;
-    int lengthIntro;
+    int lengthIntro = 0;
     int numNotesIntro;
-    int lengthMiddle;
+    int lengthMiddle = 0;
     int numNotesMiddle;
-    int lengthOutro;
+    int lengthOutro = 0;
     int numNotesOutro;
     vector<char> notes;
     vector<string> files;

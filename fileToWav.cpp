@@ -162,18 +162,17 @@ fileToWav::fileToWav() {
 void fileToWav::createWav(vector<string> files) {
     string currentFile;
     string songName;
-    int songNameLength;
-    int key;
-    int BPM;
+    int songNameLength = 0;
+    unsigned int key;
+    unsigned int BPM;
 
-    for(int i = 0; i < files[0].size(); i++) {
+    for(unsigned long i = 0;  i < files[0].size(); i++) {
         if(files[0][i] == '_') {
             songNameLength = i;
             break;
         }
     }
     songName = files[0].substr(0, songNameLength) + ".wav";
-    vector<string> notes;
 
     ofstream wavFile(songName.c_str(), ios::binary);
     if(wavFile.fail()) {
@@ -195,8 +194,7 @@ void fileToWav::createWav(vector<string> files) {
     size_t dataChunkPos = wavFile.tellp();
     wavFile << "data----";
 
-
-    for(int i = 0; i < files.size(); i++) {
+    for(unsigned int i = 0; i < files.size(); i++) {
         ifstream input;
 
         currentFile = files[i];
@@ -206,7 +204,7 @@ void fileToWav::createWav(vector<string> files) {
             cout << "Could not open " << currentFile << endl;
             exit(1);
         }
-        unsigned int key = input.get();
+        key = input.get();
         map<char, double> frequencies = getFrequency(key);
         vector<char> notes;
 
@@ -214,7 +212,7 @@ void fileToWav::createWav(vector<string> files) {
             notes.push_back(input.get());
         }
 
-        double BPM = notes.size() / 4;
+        BPM = notes.size() / 4;
 
         
         double lengthOfNote = 60.0 / BPM; //Use 60 because it's how many seconds in a minute
@@ -227,10 +225,11 @@ void fileToWav::createWav(vector<string> files) {
         //or 'percussion' file
         wavFile.seekp(dataChunkPos + 8);
         if(currentFile[songNameLength + 1] == 'm') {
-            for(int j = 0; j < notes.size(); j++) {
+            for(unsigned long j = 0; j < notes.size(); j++) {
                 if(notes[j] != '-' && notes[j] != ' ') {
                     for(int k = 0; k < numSamples; k++) {
-                        writeWord(wavFile, (int)(amplitude * sin(twoPi * k * frequencies[notes[j]])));
+                        double value = sin((twoPi * k * frequencies[notes[j]]) / hz);
+                        writeWord(wavFile, (int)(amplitude * value), 2);
                     }
                 }
             }
