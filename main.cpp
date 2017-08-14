@@ -156,14 +156,14 @@ void displayGenerateMenu() {
                     cout << "\tAb - 5\tG - 12\n";
                     cout << "\tDb - 6\t\n";
                     cout << "\tGb - 7\t\n\n";
-                    cout << "--Minor--\n";
-                    cout << "\tA - 13\tAb - 20\n";
-                    cout << "\tB - 14\tBb - 21\n";
-                    cout << "\tC - 15\t\n";
-                    cout << "\tD - 16\tDb - 22\n";
-                    cout << "\tE - 17\tEb - 23\n";
-                    cout << "\tF - 18\tF# - 24\n";
-                    cout << "\tG - 19\t\n\n";
+                    cout << "--Harmonic Minor--\n";
+                    cout << "\tA  - 13\tG# - 20\n";
+                    cout << "\tD  - 14\tC# - 21\n";
+                    cout << "\tG  - 15\tF# - 22\n";
+                    cout << "\tC  - 16\tB  - 23\n";
+                    cout << "\tF  - 17\tE  - 24\n";
+                    cout << "\tBb  - 18\t\n";
+                    cout << "\tEb - 19\t\n\n";
 
                     //I subtract 1 so I don't have to deal with off-by-one
                     generator.setKey(check(1, 24) - 1);

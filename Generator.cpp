@@ -11,7 +11,7 @@ using namespace std;
 //Private
 //
 
-void Generator::writeToFile(vector<char> notes, string append) {
+string Generator::writeToFile(vector<char> notes, string append) {
     ofstream outStream;
 
     string temp = getName();
@@ -28,6 +28,7 @@ void Generator::writeToFile(vector<char> notes, string append) {
     }
 
     outStream.close();
+    return temp;
 }
 
 //
@@ -82,7 +83,7 @@ void Generator::setKey(int k) {
 
 void Generator::setSequence(string s) {
     int j = 0;
-    for(int i = 0; i < s.length(); i++) {
+    for(unsigned long i = 0; i < s.length(); i++) {
         if(s[i] != '[' && s[i] != ']') {
             sequence[j] = s[i];
             j++;
@@ -96,13 +97,14 @@ void Generator::setName(string n) {
 
 void Generator::generate() {
     int numNotes;
-    int lengthIntro;
+    int lengthIntro = 0;
     int numNotesIntro;
-    int lengthMiddle;
+    int lengthMiddle = 0;
     int numNotesMiddle;
-    int lengthOutro;
+    int lengthOutro = 0;
     int numNotesOutro;
     vector<char> notes;
+    vector<string> files;
     string append;
 
     //I'm using 4 because I want all the songs to be 4 minutes long
@@ -179,7 +181,7 @@ void Generator::generate() {
         }
         append = "melody";
         append += to_string(i);
-        writeToFile(notes, append);
+        files.push_back(writeToFile(notes, append));
         notes.clear();
     }
 
@@ -226,7 +228,7 @@ void Generator::generate() {
         }
     }
     append = "base";
-    writeToFile(notes, append);
+    files.push_back(writeToFile(notes, append));
     notes.clear();
 
     //Generation of Percusion
@@ -249,5 +251,7 @@ void Generator::generate() {
         }
     }
     append = "percussion";
-    writeToFile(notes, append);
+    files.push_back(writeToFile(notes, append));
+    fileToWav wavCreator;
+    wavCreator.createWav(files);
 }
