@@ -181,7 +181,7 @@ void fileToWav::createWav(vector<string> files) {
     }
 
     //Writing the WAVE header stuff
-    wavFile << "RIFF----WAVfmt ";
+    wavFile << "RIFF----WAVEfmt ";
     writeWord(wavFile, 16, 4); //Subchunk1 Size
     writeWord(wavFile, 1, 2); //Audio format, 1 = PCM
     writeWord(wavFile, 1, 2); //Number of channels
@@ -193,6 +193,7 @@ void fileToWav::createWav(vector<string> files) {
     //keep track of the data chunk position
     size_t dataChunkPos = wavFile.tellp();
     wavFile << "data----";
+    size_t fileLength = 43;
 
     for(unsigned int i = 0; i < files.size(); i++) {
         ifstream input;
@@ -230,6 +231,7 @@ void fileToWav::createWav(vector<string> files) {
                     for(int k = 0; k < numSamples; k++) {
                         double value = sin((twoPi * k * frequencies[notes[j]]) / hz);
                         writeWord(wavFile, (int)(amplitude * value), 2);
+                        fileLength += 2;
                     }
                 }
             }
@@ -240,9 +242,9 @@ void fileToWav::createWav(vector<string> files) {
         }
         input.close();
     }
-    size_t fileLength = wavFile.tellp();
+    //size_t fileLength = wavFile.tellp();
     wavFile.seekp(dataChunkPos + 4);
-    writeWord(wavFile, fileLength - dataChunkPos + 8);
+    writeWord(wavFile, fileLength - dataChunkPos + 8, 4);
     wavFile.seekp(4);
     writeWord(wavFile, fileLength - 8, 4);
 }
